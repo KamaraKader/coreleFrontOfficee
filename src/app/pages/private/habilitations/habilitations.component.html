@@ -1,0 +1,109 @@
+<div class="container justify-content-md-center p-5 mt-5">
+  <nz-card [nzExtra]="extraTemplate" [nzTitle]="titre | translate">
+    <div class="ant-card-body">
+
+
+
+      <div class="row">
+<!--        <div class="col-sm-12">-->
+<!--          <nz-transfer-->
+<!--            [nzDataSource]="list"-->
+<!--            [nzDisabled]="disabled"-->
+<!--            nzShowSearch-->
+<!--            [nzFilterOption]="filterOption"-->
+<!--            [nzListStyle]="{ 'width.px': 250, 'height.px': 300 }"-->
+<!--            (nzSearchChange)="search($event)"-->
+<!--            (nzSelectChange)="select($event)"-->
+<!--            (nzChange)="change($event)"-->
+<!--          ></nz-transfer>-->
+<!--        </div>-->
+
+        <div class="col-sm-5">
+
+          <div>
+<!--            <nz-form-label>{{'recherche' | translate}}</nz-form-label>-->
+            <nz-input-group [nzPrefix]="prefixTemplate">
+              <input type="text" nz-input placeholder="Rechercher..." [(ngModel)]="searchInput" (ngModelChange)="searchMenu()">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+
+          <nz-table class="mt-1" [nzLoading]="loading" nzSize="middle"  [nzPageSize]="5"  #MenuListe [nzData]="dataMenu">
+            <thead>
+            <tr>
+              <th>{{ 'Liste.des.menu' | translate }}</th>
+              <th style="width: 2%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of MenuListe.data;  let i=index">
+              <td>{{item?.title | translate}}</td>
+              <td class="text-md-right">
+                <label nz-checkbox [(ngModel)]="item.menu" nz-tooltip (ngModelChange)="selectMenu($event, item)" ></label>
+              </td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </div>
+
+        <div style="margin-top: 180px" class="col-sm-2">
+          <button nz-button nzType="primary">
+            Affecté
+            <span nz-icon nzType="right"></span>
+          </button>
+        </div>
+
+        <div class="col-sm-5">
+          <div>
+            <!--            <nz-form-label>{{'recherche' | translate}}</nz-form-label>-->
+            <nz-input-group [nzPrefix]="prefixTemplate">
+              <input type="text" nz-input placeholder="Rechercher..." [(ngModel)]="searchInput" (ngModelChange)="searchMenu()">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+
+          <nz-table class="mt-1" [nzLoading]="loading" nzSize="middle"  [nzPageSize]="4"  #MenuAutListe [nzData]="dataMenu">
+            <thead>
+            <tr>
+              <th>{{ 'Liste.des.menu.autorisés' | translate }}</th>
+              <th style="width: 2%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of MenuAutListe.data;  let i=index">
+              <td>{{item?.title | translate}}</td>
+              <td class="text-md-right">
+                  <button
+                    (click)="getDeleteValue(item)"
+                    nz-popconfirm nzPopconfirmTitle="Etes vous sûre de vouloir supprimer ?" [nzPopconfirmShowArrow]="false"
+                    (nzOnConfirm)="confirm()"
+                    (nzOnCancel)="cancel()"
+                    nzOkText = "Oui"
+                    nzCancelText="Non"
+                    nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Supprimer">
+                    <i nz-icon nzType="delete" theme="outline"></i>
+                  </button>
+              </td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </div>
+
+      </div>
+    </div>
+  </nz-card>
+</div>
+
+<ng-template #extraTemplate>
+  <!--    <nz-switch [(ngModel)]="switchValue"></nz-switch>-->
+  <button (click)="retourPage()" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Retour">
+    <i style="font-size: 30px"  nz-icon nzType="left-square" theme="outline"></i>
+  </button>
+<!--  <button (click)="AddJouTypeUser()" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Ajouter">-->
+<!--    <i style="font-size: 30px"  nz-icon nzType="plus-square" theme="outline"></i>-->
+<!--  </button>-->
+</ng-template>

@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  gate_frontend:
+    image: melisafinances/melisa-gate-front:latest
+    ports:
+      - '54154:80'
+    networks:
+      - melisaV2
+    depends_on:
+      - keycloak
+
+  core_frontend:
+    image: melisafinances/melisa-core-front-end:latest
+    ports:
+      - '4200:80'
+    networks:
+      - melisaV2
+    depends_on:
+      - keycloak
+
+  agency_frontend:
+    image: melisafinances/melisa-agency-front:latest
+    ports:
+      - '59449:80'
+    networks:
+      - melisaV2
+    depends_on:
+      - keycloak
+
+  gate_backend:
+    image: melisafinances/melisa-v2-gate-backend:1.0.2
+    ports:
+      - '3006:3006'
+    networks:
+      - melisaV2
+    depends_on:
+      - keycloak
+
+  core_backend:
+    image: melisafinances/core-backend-app:1.0.2
+    ports:
+      - '3005:3005'
+    networks:
+      - melisaV2
+    depends_on:
+      - keycloak
+
+  keycloak:
+    image: melisafinances/keycloak:latest
+    ports:
+      - '8080:8080'
+    networks:
+      - melisaV2
+
+networks:
+  melisaV2:
+
+
+
+
+# version: '3'
+# services:
+#   gate_frontend:
+#     build: melisafinances/melisa-gate-front
+#     ports:
+#       - '54154:80'
+#     networks:
+#       - melisaV2
+
+#   core_frontend:
+#     build: melisafinances/melisa-core-front-end
+#     ports:
+#       - '4200:80'
+#     networks:
+#       - melisaV2
+
+#   agency_frontend:
+#     build: melisafinances/melisa-agency-front
+#     ports:
+#       - '59449:80'
+#     networks:
+#       - melisaV2
+
+#   gate_backend:
+#     build: melisafinances/melisa-gate-back
+#     ports:
+#       - '3006:3006'
+#     networks:
+#       - melisaV2
+
+#   core_backend:
+#     build: melisafinances/melisa-finance-core-backend
+#     ports:
+#       - '3005:3005'
+#     networks:
+#       - my-network
+
+#   keycloak:
+#     image: melisafinances/keycloak
+#     ports:
+#       - '8080:8080'
+#     networks:
+#       - melisaV2
+
+# networks:
+#   my-network:
+#     driver: bridge

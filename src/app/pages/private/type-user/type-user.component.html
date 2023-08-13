@@ -1,0 +1,53 @@
+<div class="container justify-content-md-center p-5 mt-5">
+  <nz-card [nzExtra]="extraTemplate" [nzTitle]="'gestion.des.type.utilisateurs' | translate">
+    <div class="ant-card-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <nz-table [nzLoading]="loading" nzSize="middle"  [nzPageSize]="5"  #jourFListTable [nzData]="typeUserData">
+            <thead>
+            <tr>
+              <th style="width: 10%">{{ 'code' | translate }}</th>
+              <th>{{ 'nom' | translate }}</th>
+              <th style="width: 20%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of jourFListTable.data;  let i=index">
+              <td>{{item.code}}</td>
+              <td>{{item.libelle}}</td>
+              <td class="text-md-right">
+                <a (click)="ModalHabilitation(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Habilitations" >
+                  <i nz-icon nzType="partition" theme="outline"></i>
+                </a>
+                <a (click)="ModalModification(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Modifier" >
+                  <i nz-icon nzType="edit" theme="outline"></i>
+                </a>
+                <button
+                  (click)="getDeleteValue(item)"
+                  nz-popconfirm [nzPopconfirmTitle]="'etes.vous.sure.de.vouloir.supprimer' | translate" [nzPopconfirmShowArrow]="false"
+                  (nzOnConfirm)="confirm()"
+                  (nzOnCancel)="cancel()"
+                  nzOkText = "Oui"
+                  nzCancelText="Non"
+                  nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Supprimer">
+                  <i nz-icon nzType="delete" theme="outline"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+</div>
+
+<ng-template #extraTemplate>
+  <!--    <nz-switch [(ngModel)]="switchValue"></nz-switch>-->
+  <button (click)="retourPage()" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Retour">
+    <i style="font-size: 30px"  nz-icon nzType="left-square" theme="outline"></i>
+  </button>
+  <button (click)="AddJouTypeUser()" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Ajouter">
+    <i style="font-size: 30px"  nz-icon nzType="plus-square" theme="outline"></i>
+  </button>
+</ng-template>
