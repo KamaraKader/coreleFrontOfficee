@@ -49,7 +49,7 @@
         </div>
 
         <div style="margin-top: 180px" class="col-sm-2">
-          <button nz-button nzType="primary">
+          <button [nzLoading]="isLoadingBtn" (click)="submitAffecte()" nz-button nzType="primary">
             Affecté
             <span nz-icon nzType="right"></span>
           </button>
@@ -59,14 +59,14 @@
           <div>
             <!--            <nz-form-label>{{'recherche' | translate}}</nz-form-label>-->
             <nz-input-group [nzPrefix]="prefixTemplate">
-              <input type="text" nz-input placeholder="Rechercher..." [(ngModel)]="searchInput" (ngModelChange)="searchMenu()">
+              <input type="text" nz-input placeholder="Rechercher..." [(ngModel)]="searchInputAut" (ngModelChange)="searchMenuAut()">
             </nz-input-group>
             <ng-template #prefixTemplate>
               <i nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
 
-          <nz-table class="mt-1" [nzLoading]="loading" nzSize="middle"  [nzPageSize]="4"  #MenuAutListe [nzData]="dataMenu">
+          <nz-table class="mt-1" [nzLoading]="loading" nzSize="middle"  [nzPageSize]="4"  #MenuAutListe [nzData]="dataMenuTypeUser">
             <thead>
             <tr>
               <th>{{ 'Liste.des.menu.autorisés' | translate }}</th>

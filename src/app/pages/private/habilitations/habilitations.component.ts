@@ -4,6 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {TransferItem} from "ng-zorro-antd/transfer";
 import {MenuServices} from "../../../services/menu.service";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {TypeUserMenuService} from "../../../services/type.user.menu.service";
 
 @Component({
   selector: 'app-habilitations',
@@ -20,12 +21,18 @@ export class HabilitationsComponent implements OnInit {
   dataMenu: any = [];
   searchInput: any;
   menuArray: any = [];
+  dataMenuTypeUser: any = [];
+  searchInputAut: any;
+  isLoadingBtn = false;
+  typeUsermenuDataTemp: any = [];
+  idMenuAut: any;
 
   constructor(private route: ActivatedRoute,
               private translate: TranslateService,
               private router: Router,
               private menuSvce: MenuServices,
-              private message: NzMessageService
+              private message: NzMessageService,
+              private typeUserMenuSvce: TypeUserMenuService
               ) { }
 
   ngOnInit(): void {
@@ -38,6 +45,8 @@ export class HabilitationsComponent implements OnInit {
 
         this.idTypeUser = valueOfQueryParam[0].idType
         this.libelle = valueOfQueryParam[1].libelle
+
+        this.getMenuByTypeUser(this.idTypeUser)
       }
     });
 
@@ -77,7 +86,29 @@ export class HabilitationsComponent implements OnInit {
     )
   }
 
+  getMenuByTypeUser(idTypeUser: any) {
+    this.loading = true;
+    this.typeUserMenuSvce.getByTypeUser(idTypeUser).subscribe(
+      (data:any) => {
+        this.loading = false;
+        //  console.log('dataaaa', data)
+        this.dataMenuTypeUser = data;
+        this.typeUsermenuDataTemp = this.dataMenuTypeUser
+        //   console.log(this.moduleListes);
+      },
+      error => {
+        //   console.log('---->',error.error.message);
+         this.message.error(this.translate.instant(error.error.message))
+      //  this.message.error(error.error.message)
+        this.loading = false;
+
+      }
+    )
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
 
 
 
@@ -117,6 +148,7 @@ export class HabilitationsComponent implements OnInit {
     // console.log(item.id)
 
     console.log(this.menuArray)
+    // ggg
   }
 
   searchMenu() {
@@ -124,14 +156,89 @@ export class HabilitationsComponent implements OnInit {
   }
 
   getDeleteValue(item: any) {
-
+    this.idMenuAut = item.id
   }
 
   confirm() {
-
+    this.typeUserMenuSvce.delete(this.idMenuAut)
+      .subscribe(
+        response => {
+          //   console.log('responseee==>', response);
+          if (response) {
+            this.message.success(this.translate.instant('supprimer.avec.succes'), {
+              nzDuration: 5000
+            });
+            this.getMenuByTypeUser(this.idTypeUser);
+          }
+          //  this.submitted = true;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   cancel() {
+
+  }
+
+  searchMenuAut() {
+
+  }
+
+  submitAffecte() {
+    this.isLoadingBtn = true
+    if (this.menuArray.length === 0) {
+      this.message.error(this.translate.instant('veuillez.selectionner.un.menu'), {
+        nzDuration: 5000
+      });
+      this.isLoadingBtn = false
+      return
+    }
+
+    //Verifier si les menus sélectionné existe deja
+
+    for (let i =0; i < this.menuArray.length; i++) {
+      const el = this.menuArray[i]
+      let isExist = false
+      this.typeUsermenuDataTemp?.forEach((sh: any) => {
+        if(el.code == sh.code?.id) isExist = true
+      })
+
+      if(isExist) {
+        //message d'errur
+
+        this.message.error(this.translate.instant('veuillez.decocher.les.menu.deja.autorise'), {
+          nzDuration: 5000
+        });
+        this.isLoadingBtn = false
+        return;
+      }
+    }
+
+    //return;
+    this.typeUserMenuSvce.create(this.menuArray)
+      .subscribe(
+        response => {
+          // console.log('responseee==>', response);
+          if (response) {
+            this.message.success(this.translate.instant('ajouter.avec.succes'), {
+              nzDuration: 5000
+            });
+            this.getMenu()
+            this.getMenuByTypeUser(this.idTypeUser)
+            this.isLoadingBtn = false;
+            this.menuArray = []
+          }
+          //  this.validateBilletageForm.reset()
+          //  this.submitted = true;
+        },
+        error => {
+          this.isLoadingBtn = false;
+          this.message.error(this.translate.instant(error.error.message), {
+            nzDuration: 5000
+          });
+          console.log(error);
+        });
 
   }
 }

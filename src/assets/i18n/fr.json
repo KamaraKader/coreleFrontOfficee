@@ -34,5 +34,9 @@
   "gestion.des.type.utilisateurs": "Gestion des types utilisateurs",
   "gestion.des.habillitations.des": "Gestion des habillitations de",
   "Liste.des.menu": "Liste des menus",
-  "Liste.des.menu.autorisés": "Liste des menu autorisés"
+  "Liste.des.menu.autorisés": "Liste des menu autorisés",
+  "veuillez.selectionner.un.menu": "Veuillez sélectionner un menu",
+  "veuillez.decocher.les.menu.deja.autorise": "Veuillez décocher les menus déjà autorisés",
+  "ajouter.avec.succes": "Ajouté avec succes",
+  "supprimer.avec.succes": "Supprimé avec succes"
 }
