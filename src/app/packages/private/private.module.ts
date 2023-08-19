@@ -27,6 +27,14 @@ import {NzTransferModule} from "ng-zorro-antd/transfer";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
+import {ProfesseurComponent} from "../../pages/private/professeur/professeur.component";
+import {ParentComponent} from "../../pages/private/parent/parent.component";
+import {MatiereComponent} from "../../pages/private/matiere/matiere.component";
+import {CalendrierComponent} from "../../pages/private/calendrier/calendrier.component";
+import {ElevesComponent} from "../../pages/private/eleves/eleves.component";
+import {ClasseComponent} from "../../pages/private/classe/classe.component";
+import {AgentComponent} from "../../pages/private/agent/agent.component";
+import {NzModalModule} from "ng-zorro-antd/modal";
 
 @NgModule({
     declarations: [
@@ -35,7 +43,14 @@ import {NzInputModule} from "ng-zorro-antd/input";
         FooterComponent,
         HeaderComponent,
         TypeUserComponent,
-        HabilitationsComponent
+        HabilitationsComponent,
+        ProfesseurComponent,
+        ParentComponent,
+        MatiereComponent,
+        CalendrierComponent,
+        ElevesComponent,
+        ClasseComponent,
+        AgentComponent
     ],
   imports: [
     CommonModule,
@@ -58,7 +73,8 @@ import {NzInputModule} from "ng-zorro-antd/input";
     NzTransferModule,
     NzCheckboxModule,
     NzFormModule,
-    NzInputModule
+    NzInputModule,
+    NzModalModule
 
   ]
 })

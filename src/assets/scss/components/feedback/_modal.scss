@@ -17,7 +17,7 @@
     margin: 0 auto;
     top: 6.25rem;
     padding-bottom: 1.5rem;
-}    
+}
 
 .ant-modal-content {
     background-color: $white;
@@ -35,9 +35,18 @@
 .ant-modal-header {
     padding: $modal-header-padding;
     border-radius: $modal-border-radius $modal-border-radius 0 0;
-    background: $modal-content-bg;
+  //  background: $modal-content-bg;
+    background: #9a5e01;
     color: $gray-dark;
     border-bottom: 1px solid $border-color;
+}
+
+.ant-modal-title {
+  color: #ffffff;
+}
+
+.ant-modal-close-x {
+  color: #ffffff;
 }
 
 .ant-modal-body {
@@ -84,7 +93,7 @@
             color: $state-success-text;
         }
     }
-}  
+}
 
 .ant-confirm-error {
 
@@ -94,7 +103,7 @@
             color: $state-danger-text;
         }
     }
-}  
+}
 
 .ant-confirm-confirm,
 .ant-confirm-warning {

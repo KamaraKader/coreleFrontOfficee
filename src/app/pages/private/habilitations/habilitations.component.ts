@@ -200,8 +200,8 @@ export class HabilitationsComponent implements OnInit {
     for (let i =0; i < this.menuArray.length; i++) {
       const el = this.menuArray[i]
       let isExist = false
-      this.typeUsermenuDataTemp?.forEach((sh: any) => {
-        if(el.code == sh.code?.id) isExist = true
+      this.typeUsermenuDataTemp?.forEach((sh: { code: any; }) => {
+        if(el.code == sh.code) isExist = true
       })
 
       if(isExist) {
@@ -215,7 +215,7 @@ export class HabilitationsComponent implements OnInit {
       }
     }
 
-    //return;
+  //  return;
     this.typeUserMenuSvce.create(this.menuArray)
       .subscribe(
         response => {

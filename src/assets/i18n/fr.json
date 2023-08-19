@@ -38,5 +38,14 @@
   "veuillez.selectionner.un.menu": "Veuillez sélectionner un menu",
   "veuillez.decocher.les.menu.deja.autorise": "Veuillez décocher les menus déjà autorisés",
   "ajouter.avec.succes": "Ajouté avec succes",
-  "supprimer.avec.succes": "Supprimé avec succes"
+  "supprimer.avec.succes": "Supprimé avec succes",
+  "gestion.des.professeurs": "Gestion des professeurs",
+  "oui": "Oui",
+  "non": "Non",
+  "nom": "Nom",
+  "prenom": "Prénom",
+  "contact": "Contact",
+  "ajout.un.professeur": "Ajout d'un professeur",
+  "boutton.valider": "Valider",
+  "boutton.fermer": "Fermer"
 }
