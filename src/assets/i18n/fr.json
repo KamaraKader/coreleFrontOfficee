@@ -38,6 +38,7 @@
   "veuillez.selectionner.un.menu": "Veuillez sélectionner un menu",
   "veuillez.decocher.les.menu.deja.autorise": "Veuillez décocher les menus déjà autorisés",
   "ajouter.avec.succes": "Ajouté avec succes",
+  "modifier.avec.succes": "Modifié avec succes",
   "supprimer.avec.succes": "Supprimé avec succes",
   "gestion.des.professeurs": "Gestion des professeurs",
   "oui": "Oui",
@@ -45,7 +46,16 @@
   "nom": "Nom",
   "prenom": "Prénom",
   "contact": "Contact",
+  "telephone": "Téléphone",
+  "email": "Email",
   "ajout.un.professeur": "Ajout d'un professeur",
   "boutton.valider": "Valider",
-  "boutton.fermer": "Fermer"
+  "boutton.fermer": "Fermer",
+  "veuillez.renseigner.les.champs.obligatoires": "Veuillez renseigner les champs obligatoires",
+  "veuillez.renseigner.un.mail.valide": "Veuillez renseigner un mail valide",
+  "ce.mail.existe.deja": "Ce mail existe déjà",
+  "modifier.professeur": "Modifier professeur",
+  "etes.vous.sure.de.vouloir.supprimer": "Etes vous sûre de vouloir supprimer",
+  "modifier.parent": "Modifier parent",
+  "ajouter.parent": "Ajouter parent"
 }

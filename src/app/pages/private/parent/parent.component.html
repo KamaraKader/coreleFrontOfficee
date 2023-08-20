@@ -1,1 +1,98 @@
-<p>parent works!</p>
+<div class="container justify-content-md-center p-5 mt-5">
+  <nz-card [nzExtra]="extraTemplate" [nzTitle]="'gestion.des.professeurs' | translate">
+    <div class="ant-card-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <nz-table [nzLoading]="loading" nzSize="middle"  [nzPageSize]="5"  #parentfListTable [nzData]="parentData">
+            <thead>
+            <tr>
+              <th>{{ 'nom' | translate }}</th>
+              <th>{{ 'prenom' | translate }}</th>
+              <th>{{ 'contact' | translate }}</th>
+              <th>{{ 'email' | translate }}</th>
+              <th style="width: 20%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of parentfListTable.data;  let i=index">
+              <td>{{item.nom}}</td>
+              <td>{{item.prenom}}</td>
+              <td>{{item.contact}}</td>
+              <td>{{item.email}}</td>
+              <td class="text-md-right">
+                <a (click)="ModalModification(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Modifier" >
+                  <i nz-icon nzType="edit" theme="outline"></i>
+                </a>
+                <button
+                  (click)="getDeleteValue(item)"
+                  nz-popconfirm [nzPopconfirmTitle]="'etes.vous.sure.de.vouloir.supprimer' | translate" [nzPopconfirmShowArrow]="false"
+                  (nzOnConfirm)="confirm()"
+                  (nzOnCancel)="cancel()"
+                  [nzOkText] = "'oui' | translate"
+                  [nzCancelText]="'non' | translate"
+                  nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'supprimer' | translate">
+                  <i nz-icon nzType="delete" theme="outline"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="titre | translate"
+  (nzOnCancel)="handleCancel()"
+  [nzMaskClosable]="false"
+  [nzWidth]="800"
+>
+  <div *nzModalContent>
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'nom' |translate}}: <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+        <input [(ngModel)]="tableObj.nom" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'prenom' |translate}} : <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+        <input [(ngModel)]="tableObj.prenom" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'telephone' |translate}}: <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+        <!--        <input mask="0{15}" [(ngModel)]="tableObj.contact" type="text" nz-input>-->
+        <input [(ngModel)]="tableObj.contact" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'email' |translate}}: <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+        <input [(ngModel)]="tableObj.email" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <div *nzModalFooter>
+    <button (click)="submitParent()" nz-button nzType="primary" nzSize="large" [nzLoading]="isLoadingBtn">{{'boutton.valider' | translate}}</button>
+    <button (click)="handleCancel()" nz-button nzType="default">{{'boutton.fermer' | translate}}</button>
+  </div>
+</nz-modal>
+
+<ng-template #extraTemplate>
+  <!--    <nz-switch [(ngModel)]="switchValue"></nz-switch>-->
+  <button (click)="retourPage()" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Retour">
+    <i style="font-size: 30px"  nz-icon nzType="left-square" theme="outline"></i>
+  </button>
+  <button (click)="AddJoutParent()" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Ajouter">
+    <i style="font-size: 30px"  nz-icon nzType="plus-square" theme="outline"></i>
+  </button>
+</ng-template>

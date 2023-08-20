@@ -9,14 +9,16 @@
               <th>{{ 'nom' | translate }}</th>
               <th>{{ 'prenom' | translate }}</th>
               <th>{{ 'contact' | translate }}</th>
+              <th>{{ 'email' | translate }}</th>
               <th style="width: 20%"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let item of profListTable.data;  let i=index">
-              <td>{{item.code}}</td>
+              <td>{{item.nom}}</td>
               <td>{{item.prenom}}</td>
               <td>{{item.contact}}</td>
+              <td>{{item.email}}</td>
               <td class="text-md-right">
                 <a (click)="ModalModification(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Modifier" >
                   <i nz-icon nzType="edit" theme="outline"></i>
@@ -49,7 +51,34 @@
   [nzWidth]="800"
 >
   <div *nzModalContent>
-    ...
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'nom' |translate}}: <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+        <input [(ngModel)]="tableObj.nom" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'prenom' |translate}} : <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+        <input [(ngModel)]="tableObj.prenom" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'telephone' |translate}}: <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+<!--        <input mask="0{15}" [(ngModel)]="tableObj.contact" type="text" nz-input>-->
+        <input [(ngModel)]="tableObj.contact" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzNoColon [nzSm]="4" [nzXs]="24" nzFor="">{{'email' |translate}}: <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
+        <input [(ngModel)]="tableObj.email" type="text" nz-input>
+      </nz-form-control>
+    </nz-form-item>
   </div>
 
   <div *nzModalFooter>
