@@ -590,7 +590,8 @@ $dropdown-shadow:                0 2px 8px rgba(0,0,0,.15) !default;
 //
 // Define colors theme color for menu
 $menu-spacing-y:                45px;
-$menu-text:                     rgba($gray-dark, 0.75) !default;
+//$menu-text:                     rgba($gray-dark, 0.75) !default;
+$menu-text:                     #ffffff !default;
 $menu-dark-bg:                  #223143 !default;
 $menu-dark-bg-sub:              #181f29 !default;
 $menu-dark-text:                #99abb4 !default;

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../services/auth.service";
 import {NavService} from "../../../services/nav.service";
+import {MenuServices} from "../../../services/menu.service";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 
 
@@ -39,7 +41,15 @@ export class HeaderComponent implements OnInit {
   userValue: any
   userConnected: any
   subscription: any;
-  constructor(private translate: TranslateService, private authenticatedUser: AuthService,private navService: NavService) { }
+  loading = false;
+  moduleListes: any = [];
+
+  constructor(private translate: TranslateService,
+              private authenticatedUser: AuthService,
+              private navService: NavService,
+              private menuSvce: MenuServices,
+              private message: NzMessageService
+  ) { }
 
   ngOnInit(): void {
     this.lang = localStorage.getItem('lang') || 'fr';
@@ -54,6 +64,26 @@ export class HeaderComponent implements OnInit {
 
  //  this.userConnected = this.userValue
   // console.log('userrrrrrrrrrrrrr', this.userValue)
+
+    this.getMenu()
+  }
+
+  getMenu() {
+    this.loading = true;
+    this.menuSvce.getMenu().subscribe(
+      (data:any) => {
+        this.loading = false;
+        //  console.log('dataaaa', data)
+        this.moduleListes = data;
+        //   console.log(this.moduleListes);
+      },
+      error => {
+        //   console.log('---->',error.error.message);
+        this.message.error(error.error.message)
+        this.loading = false;
+
+      }
+    )
   }
 
 

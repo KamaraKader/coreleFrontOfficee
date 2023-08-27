@@ -1,0 +1,22 @@
+.ant-form-item-label{
+  text-align: left !important; ;
+}
+
+nz-checkbox {
+  background-color: white;
+}
+
+.select2 ::ng-deep .ant-select-selector {
+  background-color: #f4f7ff !important;
+}
+
+.select ::ng-deep .ant-select-selector {
+  background-color: #f4f7ff !important;
+}
+
+nz-form-item input {
+  background-color: #f4f7ff !important;
+}
+nz-form-item .input2 ::ng-deep{
+  background-color: #ffffff !important;
+}

@@ -3,6 +3,7 @@
     line-height: $line-height-base;
     font-weight: $font-weight-semibold;
     color: $menu-text;
+    background-color: $brand-primary;
 
     &:not(.ant-menu-horizontal) {
         .ant-menu-item-selected {

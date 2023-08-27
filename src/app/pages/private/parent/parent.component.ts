@@ -67,10 +67,11 @@ export class ParentComponent implements OnInit {
 
   handleCancel() {
     this.isVisible = false
+    this.tableObj = {}
   }
 
   submitParent() {
-    const data: I_Parent = {
+    const data = {
       nom: this.tableObj.nom,
       prenom: this.tableObj.prenom,
       contact: this.tableObj.contact,
@@ -161,6 +162,7 @@ export class ParentComponent implements OnInit {
   AddJoutParent() {
     this.modeApelle = 'ajout'
     this.isVisible = true
+    this.titre = 'ajouter.parent';
   }
 
   getParent() {

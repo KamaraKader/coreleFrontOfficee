@@ -57,5 +57,22 @@
   "modifier.professeur": "Modifier professeur",
   "etes.vous.sure.de.vouloir.supprimer": "Etes vous sûre de vouloir supprimer",
   "modifier.parent": "Modifier parent",
-  "ajouter.parent": "Ajouter parent"
+  "ajouter.parent": "Ajouter parent",
+  "code": "Code",
+  "libelle": "Libellé",
+  "gestion.des.matieres": "Gestion des matières",
+  "matiere.par.classe": "Matiere par classe",
+  "matiere": "Matiere",
+  "liste.des.matieres": "Liste des matières",
+  "liste.des.matieres.par.classe": "Liste des matières par classe",
+  "ajouter.matier.a.une.classe": "Attribuer des matière à une classe",
+  "recherche": "Recherche",
+  "rechercher...": "Rechercher...",
+  "retour": "Retour",
+  "ajouter": "Ajouter",
+  "ajout.de.matiere": "Ajout de matière",
+  "ce.code.existe.deja": "Ce code existe déjà",
+  "modifier": "Modifier",
+  "modifier.matier": "Modifier matière",
+  "affecter.matiere": "Attribuer des matières à une classe"
 }

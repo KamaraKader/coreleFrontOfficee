@@ -35,6 +35,8 @@ import {ElevesComponent} from "../../pages/private/eleves/eleves.component";
 import {ClasseComponent} from "../../pages/private/classe/classe.component";
 import {AgentComponent} from "../../pages/private/agent/agent.component";
 import {NzModalModule} from "ng-zorro-antd/modal";
+import {NzTabsModule} from "ng-zorro-antd/tabs";
+import {NzSelectModule} from "ng-zorro-antd/select";
 
 @NgModule({
     declarations: [
@@ -74,7 +76,9 @@ import {NzModalModule} from "ng-zorro-antd/modal";
     NzCheckboxModule,
     NzFormModule,
     NzInputModule,
-    NzModalModule
+    NzModalModule,
+    NzTabsModule,
+    NzSelectModule
 
   ]
 })

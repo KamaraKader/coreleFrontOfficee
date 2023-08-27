@@ -3,5 +3,5 @@ export interface I_Parent {
   prenom: string;
   contact: string;
   email: string;
-  ecolesId: any;
+//  ecolesId: any;
 }
