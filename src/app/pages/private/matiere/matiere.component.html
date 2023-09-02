@@ -5,7 +5,19 @@
           <nz-tabset (nzSelectedIndexChange)="selectedIndexChange($event)" [nzSelectedIndex]="tabIndexvalue">
             <nz-tab  [nzTitle]="'matiere' | translate">
 
-              <h5>{{"liste.des.matieres" | translate}}</h5>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h5>{{"liste.des.matieres" | translate}}</h5>
+                </div>
+
+                <div class="col-sm-6" style="text-align: right">
+                  <button (click)="AddMatiere()" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'ajouter' | translate">
+                    <i style="font-size: 30px"  nz-icon nzType="plus-square" theme="outline"></i>
+                  </button>
+                </div>
+              </div>
+
+
 
               <nz-table [nzLoading]="loading" nzSize="middle"  [nzPageSize]="5"  #matieresListTable [nzData]="matiereData">
                 <thead>
@@ -41,79 +53,117 @@
 
             <nz-tab  [nzTitle]="'matiere.par.classe' | translate">
 
-            <span>pour gerer les matières classe,
+        <!--    <span>pour gerer les matières classe,
               <p>- on affiche la liste de toutes les classes comme dans getion des code dans core front end</p>
               <p>- ensuite, on selestionne une classe</p>
             <p>- on a maintenant la liste de toutes les matières de la classe sélectionnée</p>
               <p>- on peut maintenant lui attribuer d'autres matières</p>
-              </span>
+              </span>-->
 
 
 
-<!--              <div class="row">-->
-<!--                <div class="col-sm-6">-->
-<!--                  <h5>{{'liste.des.matieres.par.classe' | translate}}</h5>-->
-<!--                </div>-->
+              <ng-template [ngIf]="showMatierClasse === false">
+                <span>{{'veuillez.selectionnez.une.classe.pour.voir.les.matieres' | translate}}</span>
 
-<!--                <div class="col-sm-6" style="text-align: right">-->
-<!--                  <button  (click)="AffecterMatiere()" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'ajouter.matier.a.une.classe' | translate">-->
-<!--                    <i style="font-size: 30px"  nz-icon nzType="plus-square" theme="outline"></i>-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
+                <div class="row mt-1">
+                  <div class="col-lg-12">
+                    <!--                  <nz-form-label>{{'recherche' | translate}}</nz-form-label>-->
+                    <nz-input-group [nzPrefix]="prefixTemplate">
+                      <input type="text" nz-input [placeholder]="'rechercher...' | translate" [(ngModel)]="searchInput" (ngModelChange)="searchMatiere()">
+                    </nz-input-group>
+                    <ng-template #prefixTemplate>
+                      <i nz-icon nzType="search" class="opacity-05"></i>
+                    </ng-template>
+                  </div>
 
-<!--              <div class="row mt-1">-->
+                </div>
 
-<!--                <div class="col-lg-4">-->
-<!--                  <nz-form-label>{{'menu.classe' | translate}}</nz-form-label>-->
-<!--                  <nz-select class="w-100 select" [nzLoading]="loadingClasse" (ngModelChange)="selectClasse($event)" [(ngModel)]="classeValue" nzShowSearch nzAllowClear [nzPlaceHolder]="'selectionnez' | translate" >-->
-<!--                    <nz-option  *ngFor="let classe of dataClasse" [nzLabel]="classe?.libelle" [nzValue]="classe?.id"></nz-option>-->
-<!--                  </nz-select>-->
-<!--                </div>-->
+                <nz-table class="mt-1" [nzLoading]="loading" nzSize="middle"  [nzPageSize]="5"  #ClasseListTable [nzData]="dataClasse">
+                  <thead>
+                  <tr>
+                    <th style="width: 15%">{{ 'code' | translate }}</th>
+                    <th>{{ 'nom' | translate }}</th>
+                    <th style="width: 10%"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of ClasseListTable.data;  let i=index">
+                    <td>{{item?.code}}</td>
+                    <td>{{item?.libelle}}</td>
+                    <td class="text-md-right">
+                      <a (click)="selectClasse(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'selectionnez'| translate" >
+                        <i nz-icon nzType="select" theme="outline"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </nz-table>
+              </ng-template>
 
 
-<!--                <div class="col-lg-8">-->
-<!--                  <nz-form-label>{{'recherche' | translate}}</nz-form-label>-->
-<!--                  <nz-input-group [nzPrefix]="prefixTemplate">-->
-<!--                    <input class="input2" type="text" nz-input [placeholder]="'rechercher...' | translate" [(ngModel)]="searchInput" (ngModelChange)="search()">-->
-<!--                  </nz-input-group>-->
-<!--                  <ng-template #prefixTemplate>-->
-<!--                    <i nz-icon nzType="search" class="opacity-05"></i>-->
-<!--                  </ng-template>-->
-<!--                </div>-->
 
-<!--              </div>-->
+              <ng-template [ngIf]="showMatierClasse === true">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <span>{{titreMatierClasse | translate}}</span>
+                  </div>
 
-<!--              <nz-table class="mt-1" [nzLoading]="loading" nzSize="middle"  [nzPageSize]="5"  #matieresClasseListTable [nzData]="matieresClasseData">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                  <th style="width: 15%">{{ 'code' | translate }}</th>-->
-<!--                  <th>{{ 'nom' | translate }}</th>-->
-<!--                  <th style="width: 20%"></th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr *ngFor="let item of matieresClasseListTable.data;  let i=index">-->
-<!--                  <td>{{item?.code}}</td>-->
-<!--                  <td>{{item?.nom}}</td>-->
-<!--                  <td class="text-md-right">-->
-<!--                    <a (click)="ModalModification(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'modifier'| translate" >-->
-<!--                      <i nz-icon nzType="edit" theme="outline"></i>-->
-<!--                    </a>-->
-<!--                    <button-->
-<!--                      (click)="getDeleteValue(item)"-->
-<!--                      nz-popconfirm [nzPopconfirmTitle]="'etes.vous.sure.de.vouloir.supprimer' | translate" [nzPopconfirmShowArrow]="false"-->
-<!--                      (nzOnConfirm)="confirm()"-->
-<!--                      (nzOnCancel)="cancel()"-->
-<!--                      [nzOkText] = "'oui' | translate"-->
-<!--                      [nzCancelText]="'non' | translate"-->
-<!--                      nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'supprimer' | translate">-->
-<!--                      <i nz-icon nzType="delete" theme="outline"></i>-->
-<!--                    </button>-->
-<!--                  </td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--              </nz-table>-->
+                  <div class="col-sm-6" style="text-align: right">
+                    <button  (click)="retourListeClasse()" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'retour.liste.classe' | translate">
+                      <i style="font-size: 30px"  nz-icon nzType="left-square" theme="outline"></i>
+                    </button>
+                    <button  (click)="AffecterMatiere()" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'ajouter.matier.a.une.classe' | translate">
+                      <i style="font-size: 30px"  nz-icon nzType="plus-square" theme="outline"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row mt-1">
+                  <div class="col-lg-12">
+                    <!--                  <nz-form-label>{{'recherche' | translate}}</nz-form-label>-->
+                    <nz-input-group [nzPrefix]="prefixTemplate">
+                      <input class="input2" type="text" nz-input [placeholder]="'rechercher...' | translate" [(ngModel)]="searchInput" (ngModelChange)="search()">
+                    </nz-input-group>
+                    <ng-template #prefixTemplate>
+                      <i nz-icon nzType="search" class="opacity-05"></i>
+                    </ng-template>
+                  </div>
+
+                </div>
+
+                <nz-table class="mt-1" [nzLoading]="loading" nzSize="middle"  [nzPageSize]="5"  #matieresClasseListTable [nzData]="matieresClasseData">
+                  <thead>
+                  <tr>
+                    <th style="width: 15%">{{ 'code' | translate }}</th>
+                    <th>{{ 'nom' | translate }}</th>
+                    <th style="width: 20%"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of matieresClasseListTable.data;  let i=index">
+                    <td>{{item?.code}}</td>
+                    <td>{{item?.nom}}</td>
+                    <td class="text-md-right">
+                      <a (click)="ModalModification(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'modifier'| translate" >
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                      </a>
+                      <button
+                        (click)="getDeleteValue(item)"
+                        nz-popconfirm [nzPopconfirmTitle]="'etes.vous.sure.de.vouloir.supprimer' | translate" [nzPopconfirmShowArrow]="false"
+                        (nzOnConfirm)="confirm()"
+                        (nzOnCancel)="cancel()"
+                        [nzOkText] = "'oui' | translate"
+                        [nzCancelText]="'non' | translate"
+                        nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'supprimer' | translate">
+                        <i nz-icon nzType="delete" theme="outline"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </nz-table>
+              </ng-template>
+
+
             </nz-tab>
           </nz-tabset>
     </div>
@@ -162,19 +212,19 @@
 
 
     <div class="row">
-      <div class="col-sm-6">
-        <nz-form-item>
-          <nz-form-label nzNoColon>{{'menu.classe' | translate}} : <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>
-          <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">
-            <nz-select class="w-100 select" [nzLoading]="loadingClasse" (ngModelChange)="selectClasse($event)" [(ngModel)]="classeValue" nzShowSearch nzAllowClear [nzPlaceHolder]="'selectionnez' | translate" >
-              <nz-option  *ngFor="let classe of dataClasse" [nzLabel]="classe?.libelle" [nzValue]="classe?.id"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+<!--      <div class="col-sm-6">-->
+<!--        <nz-form-item>-->
+<!--          <nz-form-label nzNoColon>{{'menu.classe' | translate}} : <span class="px-1" style="color:red; font-size: 15px;">*</span></nz-form-label>-->
+<!--          <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Veuillez renseigner ce champs!">-->
+<!--            <nz-select class="w-100 select" [nzLoading]="loadingClasse" (ngModelChange)="selectClasse($event)" [(ngModel)]="classeValue" nzShowSearch nzAllowClear [nzPlaceHolder]="'selectionnez' | translate" >-->
+<!--              <nz-option  *ngFor="let classe of dataClasse" [nzLabel]="classe?.libelle" [nzValue]="classe?.id"></nz-option>-->
+<!--            </nz-select>-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item>-->
+<!--      </div>-->
 
-      <div class="col-sm-6">
-                      <nz-form-label>{{'recherche' | translate}}</nz-form-label>
+      <div class="col-sm-12">
+<!--                      <nz-form-label>{{'recherche' | translate}}</nz-form-label>-->
           <nz-input-group [nzPrefix]="prefixTemplate">
             <input type="text" nz-input [placeholder]="'rechercher...' | translate" [(ngModel)]="searchInput" (ngModelChange)="searchClasse()">
           </nz-input-group>
@@ -195,7 +245,7 @@
       <tr *ngFor="let item of matiereListe.data;  let i=index">
         <td>{{item?.libelle | translate}}</td>
         <td class="text-md-right">
-          <label nz-checkbox [(ngModel)]="item.classe" nz-tooltip (ngModelChange)="selectClasseAff($event, item)" ></label>
+          <label nz-checkbox [(ngModel)]="item.classe" nz-tooltip (ngModelChange)="selectMatiereAff($event, item)" ></label>
         </td>
       </tr>
       </tbody>
@@ -213,8 +263,5 @@
   <!--    <nz-switch [(ngModel)]="switchValue"></nz-switch>-->
   <button (click)="retourPage()" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'retour' | translate">
     <i style="font-size: 30px"  nz-icon nzType="left-square" theme="outline"></i>
-  </button>
-  <button (click)="AddMatiere()" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'ajouter' | translate">
-    <i style="font-size: 30px"  nz-icon nzType="plus-square" theme="outline"></i>
   </button>
 </ng-template>

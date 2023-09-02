@@ -18,9 +18,9 @@
 
     &.ant-input-disabled {
         &:hover,
-        &:focus { 
+        &:focus {
             border-color: $input-border-color;
-        }         
+        }
     }
 
     &~.ant-input-prefix,
@@ -40,7 +40,7 @@
 
         &:hover {
             border-color: $input-border-color;
-        }  
+        }
     }
 
     @include placeholder {
@@ -61,7 +61,7 @@
             }
         }
     }
-}    
+}
 
 .ant-input-lg {
     padding: $input-padding-y-lg $input-padding-x-lg;
@@ -78,14 +78,15 @@
             }
         }
     }
-}   
+}
 
 .ant-input-affix-wrapper {
     padding: $input-padding-y $input-padding-x;
     color: $input-color;
     font-size: $font-size-base;
     line-height: $line-height-base;
-    background-color: $white;
+   // background-color: $white;
+    background-color: #f4f7ff;
     border: 1px solid $border-color;
     border-radius: $input-border-radius;
 
@@ -93,11 +94,18 @@
         border-color: $input-theme-color;
     }
 
-    &:focus, 
+    &:focus,
     &.ant-input-affix-wrapper-focused {
         border-color: $input-theme-color;
         box-shadow: 0 0 0 2px rgba($input-theme-color, 0.2);
     }
+}
+
+.ant-input-affix-wrapper>input.ant-input {
+  padding: 0;
+  border: none;
+  outline: 0;
+  background-color: #f4f7ff;
 }
 
 .ant-input-affix-wrapper-sm {
@@ -106,7 +114,7 @@
 
 .ant-input-affix-wrapper-lg {
     padding: $input-padding-y-lg $input-padding-x-lg;
-    
+
     .ant-input-prefix,
     .ant-input-suffix {
         font-size: $input-font-size-lg;
@@ -141,7 +149,7 @@ textarea {
     &:hover {
         border-color: $input-border-color;
     }
-} 
+}
 
 .ant-input-affix-wrapper-disabled {
     background-color: $input-bg-disabled;
@@ -197,7 +205,7 @@ textarea {
 
 .ant-input-number-handler-wrap {
     border-left: 1px solid $input-border-color;
-}    
+}
 
 .ant-input-number-handler {
 
@@ -211,7 +219,7 @@ textarea {
     &:active {
         background-color: $gray-lightest;
     }
-} 
+}
 
 .ant-input-number-handler-down {
     border-top: 1px solid $input-border-color;
@@ -232,7 +240,7 @@ textarea {
         }
 
         .ant-cascader-picker-arrow,
-        .ant-form-explain, 
+        .ant-form-explain,
         .ant-form-split,
         .ant-input-group-addon,
         .ant-input-prefix,
@@ -252,7 +260,7 @@ textarea {
     }
 
     &.has-feedback {
-        
+
         .ant-form-item-children {
 
             &:after {
@@ -281,7 +289,7 @@ textarea {
             }
         }
     }
-} 
+}
 
 
 .has-success {
@@ -294,7 +302,7 @@ textarea {
             }
         }
     }
-} 
+}
 
 .is-validating {
 
@@ -304,7 +312,7 @@ textarea {
             color: $loading-color;
         }
     }
-}    
+}
 
 
 .ant-form-item-required {

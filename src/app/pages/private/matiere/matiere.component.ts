@@ -30,6 +30,10 @@ export class MatiereComponent implements OnInit {
   matieresClasseDataTemp: any = [];
   tabIndexvalue: any;
   idClasse: any;
+  showMatierClasse = false;
+  titreMatierClasse: any;
+  libClasse: any;
+  matierClasseArray: any = [];
 
   constructor(private router: Router,
               private matiereSvce: MatiereService,
@@ -139,12 +143,18 @@ export class MatiereComponent implements OnInit {
   }
 
   AffecterMatiere() {
-    this.titreMC = 'affecter.matiere'
+    this.titreMC = this.translate.instant('affecter.matiere') + ' ' + this.libClasse
     this.isVisibleMatiereClasse = true
   }
 
   selectClasse(event: any) {
-    this.idClasse = event
+    this.idClasse = event.id
+    this.libClasse = event.libelle
+
+    this.titreMatierClasse = this.translate.instant('liste.des.matieres.de.la.classe') + ' ' + event.libelle
+
+    this.showMatierClasse = true
+
     this.getMatiereByClasse(this.idClasse)
   }
 
@@ -242,11 +252,78 @@ export class MatiereComponent implements OnInit {
   }
 
   submitMatiereClasse() {
+    this.isLoadingBtn = true
+    if (this.matierClasseArray.length === 0) {
+      this.message.error(this.translate.instant('veuillez.selectionner.une.matiere'), {
+        nzDuration: 5000
+      });
+      this.isLoadingBtn = false
+      return
+    }
 
+    //Verifier si les menus sélectionné existe deja
+
+    for (let i =0; i < this.matierClasseArray.length; i++) {
+      const el = this.matierClasseArray[i]
+      let isExist = false
+      this.matieresClasseDataTemp?.forEach((sh: { code: any; }) => {
+        if(el.code == sh.code) isExist = true
+      })
+
+      if(isExist) {
+        //message d'errur
+
+        this.message.error(this.translate.instant('veuillez.decocher.les.matieres.deja.attribues'), {
+          nzDuration: 5000
+        });
+        this.isLoadingBtn = false
+        return;
+      }
+    }
+
+    //  return;
+    this.matiereClasseSvce.create(this.matierClasseArray)
+      .subscribe(
+        response => {
+          // console.log('responseee==>', response);
+          if (response) {
+            this.message.success(this.translate.instant('ajouter.avec.succes'), {
+              nzDuration: 5000
+            });
+            // this.getMenu()
+            this.getMatiereByClasse(this.idClasse)
+            this.isLoadingBtn = false;
+            this.matierClasseArray = []
+          }
+          //  this.validateBilletageForm.reset()
+          //  this.submitted = true;
+        },
+        error => {
+          this.isLoadingBtn = false;
+          this.message.error(this.translate.instant(error.error.message), {
+            nzDuration: 5000
+          });
+          console.log(error);
+        });
   }
 
-  selectClasseAff($event: any, item: any) {
+  selectMatiereAff(event: any, item: any) {
+    if(event) {
+      this.matierClasseArray.push({
+        libelle: item.libelle,
+        code: item.code,
+        classesId: this.idClasse,
+        path: item.path,
+        ecolesId: '0'
+      })
+    } else {
+      this.matierClasseArray.splice(event, 1);
+      //  this.menuArray = this.menuArray.filter((el: any) => el.code != item.id)
+    }
+    //  console.log('event', event)
+    // console.log(item.id)
 
+    console.log(this.matierClasseArray)
   }
 
   searchClasse() {
@@ -255,8 +332,16 @@ export class MatiereComponent implements OnInit {
 
   selectedIndexChange(event: number) {
     this.tabIndexvalue = event
-    if (this.tabIndexvalue === 1) {
-      this.getMatiereByClasse('1')
-    }
+    // if (this.tabIndexvalue === 1) {
+    //   this.getMatiereByClasse('1')
+    // }
+  }
+
+  searchMatiere() {
+
+  }
+
+  retourListeClasse() {
+    this.showMatierClasse = false
   }
 }

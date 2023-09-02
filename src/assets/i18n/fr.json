@@ -74,9 +74,15 @@
   "ce.code.existe.deja": "Ce code existe déjà",
   "modifier": "Modifier",
   "modifier.matier": "Modifier matière",
-  "affecter.matiere": "Attribuer des matières à une classe",
+  "affecter.matiere": "Attribuer des matières à la classe",
   "ajouter.classe": "Ajouter une classe",
   "gestion.des.classe": "Gestion des classes",
   "liste.des.classe": "Liste des classes",
-  "modification.de.la.classe": "Modification de la classe"
+  "modification.de.la.classe": "Modification de la classe",
+  "veuillez.selectionnez.une.classe.pour.voir.les.matieres": "Veuillez sélectionner une classe pour voir les matières",
+  "selectionnez": "Sélectionnez",
+  "liste.des.matieres.de.la.classe": "Liste des matières de la classe",
+  "retour.liste.classe": "Retour à la liste des classes",
+  "veuillez.selectionner.une.matiere": "Veuillez sélectionner une matière",
+  "veuillez.decocher.les.matieres.deja.attribues": "Veuillez décocher les matières déjà attribués"
 }

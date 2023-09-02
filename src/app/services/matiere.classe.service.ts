@@ -39,7 +39,7 @@ export class MatiereClasseService {
   }
 
   create(data: any) {
-    return this.http.post(API_URL, data)
+    return this.http.post(API_URL + `/many`, data)
   }
 
   update(code:any ,data: any) {
