@@ -74,5 +74,9 @@
   "ce.code.existe.deja": "Ce code existe déjà",
   "modifier": "Modifier",
   "modifier.matier": "Modifier matière",
-  "affecter.matiere": "Attribuer des matières à une classe"
+  "affecter.matiere": "Attribuer des matières à une classe",
+  "ajouter.classe": "Ajouter une classe",
+  "gestion.des.classe": "Gestion des classes",
+  "liste.des.classe": "Liste des classes",
+  "modification.de.la.classe": "Modification de la classe"
 }

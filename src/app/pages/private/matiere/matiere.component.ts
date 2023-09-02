@@ -3,6 +3,8 @@ import {Router} from "@angular/router";
 import {MatiereService} from "../../../services/matiere.service";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {TranslateService} from "@ngx-translate/core";
+import {ClasseService} from "../../../services/classe.service";
+import {MatiereClasseService} from "../../../services/matiere.classe.service";
 
 @Component({
   selector: 'app-matiere',
@@ -25,15 +27,21 @@ export class MatiereComponent implements OnInit {
   modeApelle: any;
   isVisibleMatiereClasse = false;
   titreMC: string = '';
+  matieresClasseDataTemp: any = [];
+  tabIndexvalue: any;
+  idClasse: any;
 
   constructor(private router: Router,
               private matiereSvce: MatiereService,
               private message: NzMessageService,
-              private translate: TranslateService
+              private translate: TranslateService,
+              private classeSvce: ClasseService,
+              private matiereClasseSvce: MatiereClasseService
   ) { }
 
   ngOnInit(): void {
     this.getMatiere()
+    this.getClasse()
   }
 
   getMatiere() {
@@ -42,6 +50,41 @@ export class MatiereComponent implements OnInit {
       .subscribe(
         data => {
           this.matiereData = data;
+          this.loading = false
+          // console.log('jour==>', data);
+        },
+        error => {
+          this.loading = false
+          console.log(error);
+        });
+  }
+
+  getMatiereByClasse(idClasse: any) {
+    this.loading = true;
+    this.matiereClasseSvce.getByClasse(idClasse, '').subscribe(
+      (data:any) => {
+        this.loading = false;
+        //  console.log('dataaaa', data)
+        this.matieresClasseData = data;
+        this.matieresClasseDataTemp = this.matieresClasseData
+        //   console.log(this.moduleListes);
+      },
+      error => {
+        //   console.log('---->',error.error.message);
+        this.message.error(this.translate.instant(error.error.message))
+        //  this.message.error(error.error.message)
+        this.loading = false;
+
+      }
+    )
+  }
+
+  getClasse() {
+    this.loading = true
+    this.classeSvce.get()
+      .subscribe(
+        data => {
+          this.dataClasse = data;
           this.loading = false
           // console.log('jour==>', data);
         },
@@ -100,8 +143,9 @@ export class MatiereComponent implements OnInit {
     this.isVisibleMatiereClasse = true
   }
 
-  selectClasse($event: any) {
-
+  selectClasse(event: any) {
+    this.idClasse = event
+    this.getMatiereByClasse(this.idClasse)
   }
 
   search() {
@@ -207,5 +251,12 @@ export class MatiereComponent implements OnInit {
 
   searchClasse() {
 
+  }
+
+  selectedIndexChange(event: number) {
+    this.tabIndexvalue = event
+    if (this.tabIndexvalue === 1) {
+      this.getMatiereByClasse('1')
+    }
   }
 }

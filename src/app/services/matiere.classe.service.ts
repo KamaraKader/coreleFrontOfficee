@@ -5,12 +5,12 @@ import {Observable} from "rxjs";
 
 
 
-const API_URL = environment.API_URL + '/matieres'
+const API_URL = environment.API_URL + '/matiere-classe'
 
 @Injectable({
   providedIn: 'root'
 })
-export class MatiereService {
+export class MatiereClasseService {
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +20,18 @@ export class MatiereService {
     return this.http.get(API_URL, {headers: {
       Authorization: 'Bearer ' + localStorage.getItem('JWT_NAME')
     }});
+  }
+
+  getByClasse(
+    classeId: any,
+    ecoleId: any = '',
+  ): Observable<{}>  {
+    let params = new HttpParams()
+      .append('classeId', `${classeId}`)
+      .append('ecoleId', `${ecoleId}`)
+    return this.http.get(`${API_URL}`, {
+      params
+    });
   }
 
   getbyId(id: string) {
