@@ -249,6 +249,7 @@ export class MatiereComponent implements OnInit {
 
   handleCancelMC() {
     this.isVisibleMatiereClasse = false
+    this.matierClasseArray = []
   }
 
   submitMatiereClasse() {
@@ -293,7 +294,7 @@ export class MatiereComponent implements OnInit {
             // this.getMenu()
             this.getMatiereByClasse(this.idClasse)
             this.isLoadingBtn = false;
-            this.matierClasseArray = []
+            this.handleCancelMC()
           }
           //  this.validateBilletageForm.reset()
           //  this.submitted = true;

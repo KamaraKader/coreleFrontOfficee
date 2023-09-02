@@ -142,7 +142,7 @@
                   <tbody>
                   <tr *ngFor="let item of matieresClasseListTable.data;  let i=index">
                     <td>{{item?.code}}</td>
-                    <td>{{item?.nom}}</td>
+                    <td>{{item?.libelle}}</td>
                     <td class="text-md-right">
                       <a (click)="ModalModification(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip [nzTooltipTitle]="'modifier'| translate" >
                         <i nz-icon nzType="edit" theme="outline"></i>
